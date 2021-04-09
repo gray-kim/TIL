@@ -46,7 +46,7 @@ gridView.setColumns(columns);
 dataProvider.setRows(jsonResult);
 ```
 
-- 기타 옵션 설정
+- edit 옵션 설정
 ```javascript
 gridView.setEditOptions({editable: false});
 ```
@@ -137,5 +137,49 @@ gridView.onCellClicked = function (grid, clickData) {
 gridView.onCellEdited = function (grid, itemIndex, row, field) {
 }
 ```
+
+### Footer 설정
+```javascript
+// Footer 설정
+gridView.setFooters({visible: true});
+
+// 1. 컬럼 설정시 합계 식 지정
+gridView.setColumns(
+  [{
+        header: {text: '상품수량'}, 
+        name: 'productQty', 
+        fieldName: 'productQty',
+        type: 'data',
+        width: '70',
+        footer: {
+          text: "합계",
+          expression: "sum",
+        },        
+    }]);
+
+// 2. javascript에서 합계 처리 후 컬럼속성 설정
+var strFooter = "합계: "+sumVal;
+gridView.setColumnProperty(
+  columnNm, 
+  "footer", 
+  {
+    text:strFooter, 
+    styleName:"ud-text-bold"
+  }
+);
+```
+
+### 기타 옵션 설정
+```javascript
+// 체크박스 표시
+gridView.setCheckBar({visible: true});
+
+// 체크박스 전체선택 표시
+gridView.setCheckBar({showAll: true});
+
+// 체크박스 단일 선택
+gridView.checkBar.exclusive = true;
+```
+
 
 [출처:리얼그리드2 공식문서](https://docs.realgrid.com/start/overview)

@@ -7,3 +7,9 @@
 ```
 
 
+
+> 후처리 연결 취소 핸들러에서 사용하는 어노테이션인데 명칭만 보아서는 앞선 트랜젝션에 대한 커밋 이후 발생하는 이벤트 처리인 것 같다. 조금 더 자세히 조사해보기!
+```java
+@TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+
+```

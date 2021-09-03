@@ -117,7 +117,7 @@ new Vue({
 ```
 
 - 그 외의 옵션 : computed, watch, methods 등이 있음
-```javascript
+```vue
 new Vue({
     data: {
         name: "soojin"
@@ -141,7 +141,7 @@ new Vue({
 
 ---
 ## 이벤트 핸들링
-
+- DOM에서 발생하는 이벤트와 Vue 컴포넌트에서 발생하는 이벤트를 처리
 
 
 ## 데이터 바인딩과 폼 입력

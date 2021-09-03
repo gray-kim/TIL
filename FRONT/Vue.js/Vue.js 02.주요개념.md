@@ -30,8 +30,36 @@ var vm = new Vue({
 ```
 
 ### [컴포넌트]
+- 개발자가 HTML 태그 방식으로 웹 페이지 안에 추가 UI를 덧붙일 수 있는 기능을 제공하는 것
+```javascript
+// 전역 컴포넌트 선언
+Vue.component(<컴포넌트 이름>, {
+    // 옵션
+});
 
+// 지역 컴포넌트 선언
+new Vue({
+    // 옵션이나 컴포넌트 설정
+});
+```
 
+- 컴포넌트 이름은 영어로 시작해야 하고, 소문자로 구성하고, 하이픈(-)을 포함할 수 있다.
+- 숫자로 시작하지 않는 것에 한정해 컴포넌트 이름의 일부분으로 사용할 수 있다.
+- 컴포넌트 선언 시 카멜케이스 형태로 선언하며 태그로 호출 시 스네이크 케이스 형태로 작성한다.
+```html
+<div id="app">
+    <my-component></my-component>
+</div>
+<script>
+    Vue.component('myComponent', {
+        template: '<span>myComponent 컴포넌트는 my-component로 호출해야 합니다.</span>'
+    });
+
+    new Vue({
+        el: '#app'
+    });
+</script>
+```
 
 ---
 ## 템플릿

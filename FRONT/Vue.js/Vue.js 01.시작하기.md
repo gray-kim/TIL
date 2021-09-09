@@ -1,5 +1,18 @@
 # Vue.js 시작하기
 
+# 핵심 키워드 정리
+- 디렉티브
+- 라이프사이클
+- 인스턴스
+- 컴포넌트(el, data, computed)
+- 템플릿
+- 이벤트 핸들링
+- CSS 클래스 바인딩
+- ES5, ES6
+- 상태관리 (Vuex)
+- 라우팅(vue-router)
+- HTTP통신 (axios)
+
 ### vue 설치
 ```shell
 $ npm install vue

@@ -121,18 +121,182 @@ var vm = new Vue({
 ```
 
 #### 5-3. model 옵션
-- 사용자화 컴포넌트를 v-model 디렉티브와 함께 사용할 때 prop 속성과 컴포넌트 이벤트를 사용자화할 수 있도록 도와준다.
-
-```이 부분은 잘 이해가 안가서 다른 책으로 봐야할 듯```
+- 사용자화 컴포넌트를 v-model 디렉티브와 함께 사용할 때 prop 속성과 컴포넌트 이벤트를 사용자화할 수 있도록 도와준다.  
+```이 부분은 잘 이해가 안감```
 
 ---
 ## 인스턴스 속성
+- Vue 인스턴스 생성 시 제공하지 않은 data 옵션의 상태는 인스턴스 생성 후에는 더 추가할 수 없다.
+- data옵션에 직접 접근하는 대신 추가 관문(프록시)를 통해 개발자가 변경하는 데이터를 추적할 수 있도록 한다.
+- 인스턴스 속성은 Vue 인스턴스가 메모리에 적재되어 있는 동안만 사용할 수 있는 인스턴스 고유의 값이 있는 객체이다.
 
 
+| 인스턴스 속성 이름 | 특징  |
+| ------| ------------ |
+| vm.$data | vue 인스턴스 생성 시 전달한 data 옵션 객체 |
+| vm.$props | 컴포넌트 태그 속성을 전달받은 후 이를 참조하거나 수정할 때 사용 |
+| vm.$el | vue 인스턴스가 마운트한 루트 DOM 엘리먼트 객체를 참조 |
+| vm.$options | vue 인스턴스 생성 시 임의로 추가한 옵션 참조할 때 사용 |
+| vm.$root | vue 인스턴스의 최상위 부모 인스턴스 반환 시 사용 |
+| vm.$parents | vue 인스턴스의 부모 컴포넌트에 접근할 때 사용 |
+| vm.$children | vue 인스턴스의 자식 컴포넌트에 접근할 때 사용 |
+| vm.$slot | 프로그램에서 접근할 수 있는 콘텐츠 슬롯에 콘텐츠를 배포할 때 사용 |
+| vm.$scopedSlots | 범위가 지정된 슬롯을 다룰 때 사용 |
+| vm.$refs | vue 인스턴스가 관리하는 자식 DOM 엘리먼트나 다른 컴포넌트 참조 시 사용 |
+| vm.$isServer | 현재 동작 중인 vue 인스턴스가 서버에서 실행 중인지 여부를 판단 결과는 boolean |
 
 ---
 ## 인스턴스 이벤트 메서드
+- vue.js 는 Vue vm 사이의 상태를 공유하고 관리하는 Vuex란 라이브러리를 제공
+- 해당 라이브러리 대신 차선책으로 Vue vm을 사용할 수 있음
+- 상태 공유로만 사용하는 Vue vm을 이벤트 버스라 한다.
+
+| 인스턴스 이벤트 메서드 이름 | 특징  |
+| ---------| ------------ |
+| vm.$on | vue 인스턴스에서 발생하는 이벤트 처리 |
+| vm.$once | vue 인스턴스에서 발생하는 이벤트를 한번만 처리 |
+| vm.$off | vue 인스턴스의 이벤트 리스너가 더 동작하지 않게살 때 사용 |
+| vm.$emit | vm에 이벤트를 발생시키는데 사용 |
 
 ---
 ## 라이프사이클 이벤트 훅
+- vue.js 프로그램의 모든 과정을 라이프사이클이라 함
+- 라이프사이클 각 단계별 이벤트가 발생하고 함수를 전달 할 수 있는데 이를 이벤트 훅이라 한다.
 
+[lifecycle](https://kr.vuejs.org/images/lifecycle.png)
+![lifecycle](https://kr.vuejs.org/images/lifecycle.png)
+
+```js
+var vm = new Vue({
+    el: "div#hollo",
+    data: {
+        hello: 'vue.js'
+    },
+    beforeCreate: function() {
+        // data 옵션 객체와 이벤트 초기화 하기 전 실행
+        // 옵션의 라이프사이클 추적에 도움
+        console.log('beforeCreate 이벤트 발생');
+    },
+    created: function() {
+        // 이벤트 초기화 단계에서 호출
+        // 엘리먼트에 마운트 하기 전에 발생하므로 vm.$el 속성을 사용할 수 없음
+        console.log('created 이벤트 발생');
+    },
+    beforeMount: function() {
+        // 초기 렌더링이 일어나기 직전
+        // 템플릿이나 렌더링 함수 컴파일한 직후에 실행
+        console.log('beforeMount 이벤트 발생');
+    },
+    mounted: function() {
+        // 마운트 단계 들어가기 진전에 호출
+        // vm.$el 속성 생성되어 있어 DOM 직접 수정 가능
+        console.log('mounted 이벤트 발생');
+    },
+    beforeDestroy: function() {
+        // vm이 메모리에서 소멸되기 직전에 발생
+        console.log('beforeDestroy 이벤트 발생');
+    },
+    destroyed: function() {
+        // vm이 메모리에서 완전히 제거된 이후 실행
+        console.log('destroyed 이벤트 발생');
+    },
+    beforeUpdate: function() {
+        // 상태값 감시하다 변경되면 DOM을 업데이트 하기 전에 호출
+        // beforeUpdate 호출 후 가상 DOM 재렌더링과 수정을 실행
+        console.log('beforeUpdate 이벤트 발생');
+    },
+    updated: function() {
+        // 가상 DOM 재렌더링과 수정이 끝난 후 실행
+        // 즉 가상 DOM을 브라우저에 반영한 후 발생
+        console.log('updated 이벤트 발생');
+    },
+});
+```
+
+```html
+<div id="hello">
+    <keep-alive>
+        <component :is="child1" v-if="show"></component>
+    </keep-alive>
+</div>
+
+<script>
+var Child = {
+    template: '<div>Child activated 이벤트 훅 테스트</div>',
+    activated: function() {
+        // keep-alive 태그로 둘러싼 엘리먼트가 DOM에 렌더링되지 않다가 보이게 되면 호출됨
+        console.log('activated 이벤트 발생');
+    },
+    deactivated: function() {
+        // keep-alive 태그로 둘러싼 엘리먼트가 DOM에 렌더링되다가 보이지 않게 되면 호출됨
+        console.log('deactivated 이벤트 발생');
+    },
+}
+
+var vm = new Vue({
+    el: "#hello",
+    data: {
+        child1: Child,
+        show: false
+    }
+})
+</script>
+```
+
+## 라이프사이클 메서드
+- Vue.js 는 4개의 라이프사이클 메서드를 제공함
+
+### 1. vm.$mount
+```html
+<div id="hello"></div>
+
+<script>
+var vm = new Vue({
+    template: '<div>{{ msg }}</div>'
+    data: {
+        msg: "hello vue"
+    }
+});
+
+vm.$mount();
+
+// vm.$mount 사용 시 인자 전달하지 않으면 vue 인스턴스 내부에 vm.$el 속성을 생성함
+// 아래처럼 DOM API를 사용해 화면에 추가 가능
+document.querySelector("div#hello").appendChild(vm.$el);
+
+// 인자로 DOM 엘리먼트 제공
+var hello_element = document.querySelector("#hello");
+vm.$mount(hello_element);
+
+// 두번째 인자 false 시 template 옵션값으로 교체
+vm.$mount("#hello", false);
+</script>
+```
+
+### 2. vm.$nextTick
+- 다음 DOM 업데이트 사이클 이후 실행될 콜백을 연기
+```js
+new Vue({
+  // ...
+  methods: {
+    // ...
+    example: function () {
+      // 데이터 수정
+      this.message = 'changed'
+      // 아직 DOM 이 갱신되지 않음
+      this.$nextTick(function () {
+        // DOM이 이제 갱신됨
+        // `this` 가 현재 인스턴스에 바인딩 됨
+        this.doSomethingElse()
+      })
+    }
+  }
+})
+```
+
+### 3. vm.$forceUpdate
+- Vue 인스턴스를 강제로 다시 렌더링
+
+### 4. vm.$destroy
+- vm을 완전히 제거
+- beforeDestroy와 destroyed 훅을 호출

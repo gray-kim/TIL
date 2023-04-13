@@ -23,6 +23,8 @@
 - Keymap
     - Editor Actions | Decrease Font Size in All Editors
     - Editor Actions | Increase Font Size in All Editors
+    - Main Menu | Window | Editor Tabs | Goto Next Splitter
+    - Main Menu | Window | Editor Tabs | Goto Previous Splitter
     - Main Menu | Edit | String Manipulation | Switch Case... | Switch case
     - Main Menu | View | Increase Font Size in All Editors
     - Main Menu | View | Decrease Font Size in All Editors

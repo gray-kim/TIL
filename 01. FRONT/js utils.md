@@ -6,9 +6,9 @@
 
 ```javascript
 function snakeToCamel(str) {
-  return str.replace(/_([a-z])/g, function (m, w) {
-    return w.toUpperCase();
-  });
+    return str.toLowerCase().replace(/_([a-z])/g, function(m, w) {
+        return w.toUpperCase();
+    });
 }
 ```
 

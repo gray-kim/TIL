@@ -49,3 +49,18 @@ private SearchResult findSearchFilterPredicate(String standDt, long searchCnt){
         .orElse(null);
 }
 ```
+
+
+### java Stream map
+다음은 Java Stream을 사용하여 dtoList의 endDt를 retireDt로 변경하는 코드입니다.
+
+```java
+List<Employee> employees = new ArrayList<>();
+
+employees.stream().map(employee -> {
+  employee.setRetireDt(employee.getEndDt());
+  return employee;
+}).collect(Collectors.toList());
+```
+
+이 코드는 dtoList를 반복하고 각 직원의 endDt 속성을 retireDt 속성으로 바꿉니다. 그런 다음 변경된 직원 목록을 반환합니다.

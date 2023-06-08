@@ -321,3 +321,22 @@ countBreeds();
     }
 </script>
 ```
+
+## Array spread 연산자
+- [ ... arr] 와 같이 표기한다
+- 원본 배열을 바꾸지 않고 열거 가능한 요소를 하나씩 전개한다.
+
+```javascript
+    let data = ["godori", "irodog", "roodig"];
+    let newData = [...data];
+    console.log( newData === data );  // false
+
+
+    function sum(a,b,c){
+        return a+b+c;
+    }
+    let arr = [100,200,300];
+    
+    console.log( sum.apply(null, arr) );  // 인자를 배열 형태로 받아 출력
+    console.log( sum(...arr) );           // 이렇게 써도 동일한 결과 출력
+```

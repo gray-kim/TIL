@@ -327,11 +327,12 @@ countBreeds();
 - 원본 배열을 바꾸지 않고 열거 가능한 요소를 하나씩 전개한다.
 
 ```javascript
+    // 배열의 복사
     let data = ["godori", "irodog", "roodig"];
     let newData = [...data];
     console.log( newData === data );  // false
 
-
+    // function에서의 사용
     function sum(a,b,c){
         return a+b+c;
     }
@@ -339,4 +340,14 @@ countBreeds();
     
     console.log( sum.apply(null, arr) );  // 인자를 배열 형태로 받아 출력
     console.log( sum(...arr) );           // 이렇게 써도 동일한 결과 출력
+
+    // 배열에 이미 존재하는 값을 변경
+    let tList = [
+        { id : 1, name : 'ted' , details : { dId : 1-1, cnt : 100 } }, 
+        { id : 2, name : 'olivia', details : { dId : 2-1, cnt : 201 } }
+    
+    ];
+    let rstl = tList.map(list => { return { ...list, details : null } } );
+    console.log(tList);
+    console.log(rstl);
 ```
